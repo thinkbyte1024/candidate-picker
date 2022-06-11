@@ -2,19 +2,19 @@ import CoreStore
 import SwiftUI
 
 struct ItemView: View {
-    private let name: String
-    private let age: Int
-
-    init(name: String, age: Int) {
-        self.name = name
-        self.age = age
-    }
+    let name: String
+    let age: Int
+    let score: Double
 
     var body: some View {
         HStack {
-            Text(self.name)
-            Spacer()
-            Text("Age \(String(self.age))")
+            VStack(alignment: .leading) {
+                Text(self.name)
+                Text("Age \(String(self.age))")
+                    .font(.caption)
+            }
+//            Spacer()
+//            Text(score == 0 ? "Not graded" : String(format: "%.2f", score))
         }
     }
 }

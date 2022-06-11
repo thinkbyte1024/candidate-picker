@@ -19,6 +19,13 @@ class AppSettings: ObservableObject {
 
         // MARK: Profile targets (Intelligence)
 
+    // Intelligence percentage
+    @Published var iPercentage: Double {
+        didSet {
+            UserDefaults.standard.set(iPercentage, forKey: "IPercentage")
+        }
+    }
+
     @Published var commonSense: Double {
         didSet {
             UserDefaults.standard.set(commonSense, forKey: "ICommonSense")
@@ -51,6 +58,13 @@ class AppSettings: ObservableObject {
 
         // MARK: Profile targets (Behavior)
 
+    // Behavior percentage
+    @Published var bPercentage: Double {
+        didSet {
+            UserDefaults.standard.set(bPercentage, forKey: "BPercentage")
+        }
+    }
+
     @Published var compliance: Double {
         didSet {
             UserDefaults.standard.set(compliance, forKey: "BCompliance")
@@ -80,6 +94,9 @@ class AppSettings: ObservableObject {
     init() {
         coreFactor = UserDefaults.standard.object(forKey: "CoreFactor") as? Double ?? 0.6
         secondaryFactor = UserDefaults.standard.object(forKey: "SecondaryFactor") as? Double ?? 0.4
+
+        iPercentage = UserDefaults.standard.object(forKey: "IPercentage") as? Double ?? 0.35
+        bPercentage = UserDefaults.standard.object(forKey: "BPercentage") as? Double ?? 0.65
 
         commonSense = UserDefaults.standard.object(forKey: "ICommonSense") as? Double ?? 3
         creativity = UserDefaults.standard.object(forKey: "ICreativity") as? Double ?? 3

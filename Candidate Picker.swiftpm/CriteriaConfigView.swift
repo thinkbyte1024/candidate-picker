@@ -16,12 +16,26 @@ struct CriteriaConfigView: View {
                         // Factor value slider
                         Slider(value: $appSettings.coreFactor, in: 0...1, step: 0.01)
                             .onChange(of: appSettings.coreFactor) { newValue in
-                                print("Core Factor: \(appSettings.coreFactor)\nSecondary Factor: \(appSettings.secondaryFactor)")
                                 appSettings.secondaryFactor = 1 - newValue
+//                                print("Core Factor: \(appSettings.coreFactor)\nSecondary Factor: \(appSettings.secondaryFactor)")
                             }
 
-                        Text("Core factor \(String(format: "%.2f", appSettings.coreFactor))%")
-                        Text("Secondary factor \(String(format: "%.2f", appSettings.secondaryFactor))%")
+                        Text("Core factor \(String(format: "%.0f", appSettings.coreFactor * 100))%")
+                        Text("Secondary factor \(String(format: "%.0f", appSettings.secondaryFactor * 100))%")
+                    }
+                }
+
+                Section("Criteria Percentage") {
+                    VStack {
+                        Slider(value: $appSettings.iPercentage, in: 0...1, step: 0.01)
+                            .onChange(of: appSettings.iPercentage) { newValue in
+                                appSettings.bPercentage = 1 - newValue
+//                                print("Core Factor: \(appSettings.iPercentage)\nSecondary Factor: \(appSettings.bPercentage)")
+                            }
+
+                        Text("Intelligence \(String(format: "%.0f", appSettings.iPercentage * 100))%")
+                        Text("Behavior \(String(format: "%.0f", appSettings.bPercentage * 100))%")
+
                     }
                 }
 

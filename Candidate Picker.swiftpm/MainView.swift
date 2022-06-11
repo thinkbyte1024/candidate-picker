@@ -22,7 +22,8 @@ struct MainView: View {
                     } label: {
                         ItemView(
                             name: item.subjectName,
-                            age: Int((Date() - item.subjectBirthdate!) / 31557600)
+                            age: Int((Date() - item.subjectBirthdate!) / 31557600),
+                            score: PMSolver.calculateScore(subject: item)
                         )
                     }
                 }

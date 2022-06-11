@@ -20,39 +20,20 @@ class DataController {
         )
 
         try! datastack.addStorageAndWait()
-
-        // MARK: SAMPLE DATA MIGRATION
-
-//        try! datastack.perform(
-//            synchronous: { transaction in
-//                try transaction.deleteAll(From<Entities.Subject>())
-//            }
-//        )
-
-//        try! datastack.perform(
-//            synchronous: { transaction in
-//                try transaction.deleteAll(From<Entities.Subject>())
-//
-//                for index in 1 ... 3 {
-//                    let newSubject = transaction.create(Into<Entities.Subject>())
-//
-//                    newSubject.subjectName = "Subject #\(index)"
-//                    newSubject.subjectAge = index + 20
-//                }
-//            }
-//        )
         return datastack
     }()
+
+        // MARK: SAMPLE DATA PREVIEW
 
     // Data preview (Not for production)
     static let preview: DataStack = {
         let datastack = DataController.datastack
 
-        try! datastack.perform(
-            synchronous: { transaction in
-                try transaction.deleteAll(From<Entities.Subject>())
-            }
-        )
+//        try! datastack.perform(
+//            synchronous: { transaction in
+//                try transaction.deleteAll(From<Entities.Subject>())
+//            }
+//        )
 
         try! datastack.perform(
             synchronous: { transaction in
