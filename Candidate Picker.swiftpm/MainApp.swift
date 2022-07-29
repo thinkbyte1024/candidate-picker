@@ -1,11 +1,14 @@
 import SwiftUI
-import CoreStore
+import CoreData
 
 @main
 struct MainApp: App {
+    let persistenceController = PersistenceController.shared
+
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainListView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
