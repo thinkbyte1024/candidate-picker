@@ -1,4 +1,8 @@
 # Candidate Picker
-Candidate Picker is a SwiftUI app used for picking employee candidates using Profile Matching method in decision support systems.
-## License
-Candidate Picker is licensed under the `MIT License`
+Candidate Picker merupakan sebuah aplikasi sederhana menggunakan Profile Matching dalam sistem pendukung keputusan.
+## Menjalankan aplikasi
+Untuk menjalankan aplikasi ini cukup menggunakan aplikasi Swift Playgrounds yang dapat di download melalui iPadOS dan MacOS
+## Masukan dan Perbaikan
+Silahkan ajukan kontribusi ataupun saran dalam project ini
+## Lisensi
+Candidate Picker dilisensikan dibawah `MIT License`
