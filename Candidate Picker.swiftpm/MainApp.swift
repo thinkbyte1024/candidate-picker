@@ -1,14 +1,18 @@
+// CoreData libraries
+//import CoreData
+
+// CoreStore libraries
+import CoreStore
+
 import SwiftUI
-import CoreData
+import SwiftUIX
 
 @main
 struct MainApp: App {
-    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
             MainListView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .titleBarHidden(true)
         }
     }
 }

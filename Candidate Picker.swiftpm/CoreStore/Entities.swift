@@ -3,7 +3,7 @@ import SwiftUI
 
 final class Entities {
 
-    // Intelligence grade
+    // Nilai kecerdasan
     final class Intelligence: CoreStoreObject {
 
         @Field.Relationship("subject", inverse: \Entities.Subject.$intelligence)
@@ -25,7 +25,7 @@ final class Entities {
         var anticipation: Int = 0
     }
 
-    // Behavior grade
+    // Nilai perilaku
     final class Behavior: CoreStoreObject {
         @Field.Relationship("subject", inverse: \Entities.Subject.$behavior)
         var subject: Entities.Subject?
@@ -43,7 +43,7 @@ final class Entities {
         var dominance: Int = 0
     }
 
-    // Subject data
+    // Data kandidat
     final class Subject: CoreStoreObject, Identifiable {
         @Field.Stored("subjectId", dynamicInitialValue: { UUID() })
         var subjectId: UUID
@@ -69,7 +69,7 @@ final class Entities {
 }
 
 
-// Genders
+// Jenis kelamin
 extension Entities.Subject {
     enum Gender: String, CaseIterable, ImportableAttributeType, FieldStorableType {
         case male

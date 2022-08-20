@@ -1,6 +1,6 @@
 import Foundation
 
-// Unusable class, for now
+// Masih belum digunakan, untuk sekarang
 final class AppFormatter {
     static func formatPercent(number: Double) -> String {
         let formatter = NumberFormatter()

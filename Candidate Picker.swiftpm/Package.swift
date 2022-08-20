@@ -16,7 +16,9 @@ let package = Package(
         .iOSApplication(
             name: "Candidate Picker",
             targets: ["AppModule"],
-            displayVersion: "0.0.1",
+            bundleIdentifier: "dev.thinkbyte1024.CandidatePicker",
+            teamIdentifier: "A47PK43MX6",
+            displayVersion: "0.2.1",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .paper),
             accentColor: .presetColor(.mint),
@@ -34,13 +36,15 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/JohnEstropia/CoreStore.git", "8.1.0"..<"9.0.0")
+        .package(url: "https://github.com/JohnEstropia/CoreStore.git", "8.1.0"..<"9.0.0"),
+        .package(url: "https://github.com/SwiftUIX/SwiftUIX", "0.1.2"..<"1.0.0")
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
             dependencies: [
-                .product(name: "CoreStore", package: "CoreStore")
+                .product(name: "CoreStore", package: "CoreStore"),
+                .product(name: "SwiftUIX", package: "SwiftUIX")
             ],
             path: "."
         )

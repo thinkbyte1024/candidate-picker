@@ -9,16 +9,15 @@ struct FormItemData: Identifiable {
 }
 
 struct SubjectFormView: View {
-
     // MARK: Environments
 
     @Environment(\.managedObjectContext) private var viewContext
 
-    // MARK: State variable
+    // MARK: Variabel state
 
     @State private var nameInput: String = ""
-    @State private var birthdateInput: Date = Date()
-    @State private var selectedGender: Int64 = 0
+    @State private var birthdateInput: Date = .init()
+    @State private var selectedGender: Entities.Subject.Gender = .male
 
     @State private var pickerState = false
 
@@ -26,9 +25,9 @@ struct SubjectFormView: View {
 
     @Binding var formState: Bool
 
-    // MARK: onComplete Function
+    // MARK: fungsi onComplete()
 
-    let onComplete: (String, Date, Int64) -> Void
+    let onComplete: (String, Date, Entities.Subject.Gender) -> Void
 
     var body: some View {
         NavigationView {
@@ -42,19 +41,19 @@ struct SubjectFormView: View {
 
                 Picker("Gender", selection: $selectedGender) {
                     Text("Male")
-                        .tag(Int64(0))
+                        .tag(Entities.Subject.Gender.male)
                     Text("Female")
-                        .tag(Int64(1))
+                        .tag(Entities.Subject.Gender.female)
                 }
                 .pickerStyle(.inline)
 
                 Section {
                     Button {
-                        if (!nameInput.isEmpty) {
-                            formState.toggle()
+                        if !nameInput.isEmpty {
                             onComplete(nameInput, birthdateInput, selectedGender)
+                            formState.toggle()
                         } else {
-                                // TODO: Show empty name alert
+                            // TODO: Menampilkan peringatan nama kosong
                         }
                     } label: {
                         Text("Submit")
@@ -68,8 +67,7 @@ struct SubjectFormView: View {
                     Button {
                         formState.toggle()
                     } label: {
-                        Label("Back", systemImage: "chevron.left")
-                        Text("Back")
+                        Text("Cancel")
                     }
                 }
             }

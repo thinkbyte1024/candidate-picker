@@ -1,6 +1,8 @@
 import CoreStore
 import Foundation
+
 class DataController {
+    // Pembuatan database
     static let datastack: DataStack = {
         let datastack = DataStack(
             CoreStoreSchema(
@@ -15,7 +17,6 @@ class DataController {
                     "Intelligence": [0xb6366f2de6b719a6, 0xfbe9201238425653, 0x3abf9a27ed0d6c2d, 0x4ec3ce89ce6fbc93],
                     "Subjects": [0x6b7e0b5ed1bb9646, 0xd7627a26ab2b1e, 0x8080a4b926b47c3a, 0x92aa242709d709b5]
                 ]
-
             )
         )
 
@@ -23,9 +24,15 @@ class DataController {
         return datastack
     }()
 
+        // MARK: Publishers
+
+    static let subjectPublisher: ListPublisher<Entities.Subject> = DataController.datastack.publishList(
+        From<Entities.Subject>()
+    )
+
         // MARK: SAMPLE DATA PREVIEW
 
-    // Data preview (Not for production)
+    // Data preview (Hanya digunakan untuk debugging)
     static let preview: DataStack = {
         let datastack = DataController.datastack
 

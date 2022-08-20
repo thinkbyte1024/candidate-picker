@@ -1,5 +1,6 @@
 import Foundation
 
+// Kelas utama dalam penerapan sistem pendukung keputusan Profile Matching
 final class PMSolver {
     struct IntelligenceGrade {
         let csDiff: Double
@@ -22,16 +23,15 @@ final class PMSolver {
         let secondaryFactor: Double
     }
 
-    static func calculateIntelligence(subject: Candidate) -> IntelligenceGrade {
+    // Menghitung seluruh nilai aspek "Kecerdasan"
+    static func calculateIntelligence(subject: Entities.Subject) -> IntelligenceGrade {
         let appSettings = AppSettings()
 
-            // BUG: Problem in using this method in MainView / ItemView
-
-        let csDiff = gapDifference(category: (subject.intelligence.commonSense ) - Int(appSettings.commonSense))
-        let concentrationDiff = gapDifference(category: (subject.intelligence.concentration ) - Int(appSettings.concentration))
-        let creativityDiff = gapDifference(category: (subject.intelligence.creativity ) - Int(appSettings.creativity))
-        let reasoningDiff = gapDifference(category: (subject.intelligence.reasoning ) - Int(appSettings.reasoning))
-        let anticipationDiff = gapDifference(category: (subject.intelligence.anticipation ) - Int(appSettings.anticipation))
+        let csDiff = gapDifference(category: (subject.intelligence?.commonSense ?? 0) - Int(appSettings.commonSense))
+        let concentrationDiff = gapDifference(category: (subject.intelligence?.concentration ?? 0) - Int(appSettings.concentration))
+        let creativityDiff = gapDifference(category: (subject.intelligence?.creativity ?? 0) - Int(appSettings.creativity))
+        let reasoningDiff = gapDifference(category: (subject.intelligence?.reasoning ?? 0) - Int(appSettings.reasoning))
+        let anticipationDiff = gapDifference(category: (subject.intelligence?.anticipation ?? 0) - Int(appSettings.anticipation))
 
         // Core Factor (Common Sense, Creativity, Reasoning)
         let coreFactor = (csDiff + creativityDiff + reasoningDiff) / 3
@@ -51,15 +51,14 @@ final class PMSolver {
         )
     }
 
-    static func calculateBehavior(subject: Candidate) -> BehaviorGrade {
+    // Menghitung seluruh nilai aspek "Perilaku"
+    static func calculateBehavior(subject: Entities.Subject) -> BehaviorGrade {
         let appSettings = AppSettings()
 
-            // BUG: Problem in using this method in MainView / ItemView
-
-        let complianceDiff = gapDifference(category: (subject.behavior.compliance) - Int(appSettings.compliance))
-        let influenceDiff = gapDifference(category: (subject.behavior.influence) - Int(appSettings.influence))
-        let steadinessDiff = gapDifference(category: (subject.behavior.steadiness) - Int(appSettings.steadiness))
-        let dominanceDiff = gapDifference(category: (subject.behavior.dominance) - Int(appSettings.dominance))
+        let complianceDiff = gapDifference(category: (subject.behavior?.compliance ?? 0) - Int(appSettings.compliance))
+        let influenceDiff = gapDifference(category: (subject.behavior?.influence ?? 0) - Int(appSettings.influence))
+        let steadinessDiff = gapDifference(category: (subject.behavior?.steadiness ?? 0) - Int(appSettings.steadiness))
+        let dominanceDiff = gapDifference(category: (subject.behavior?.dominance ?? 0) - Int(appSettings.dominance))
 
         // Core Factor (Compliance, Influence, Steadiness)
         let coreFactor = (complianceDiff + influenceDiff + steadinessDiff) / 3
@@ -77,15 +76,18 @@ final class PMSolver {
         )
     }
 
-    static func intelligenceTotalScore(subject: Candidate, coreFactorReq: Double, secondaryFactorReq: Double) -> Double {
+    // Menghitung total nilai aspek "Kecerdasan"
+    static func intelligenceTotalScore(subject: Entities.Subject, coreFactorReq: Double, secondaryFactorReq: Double) -> Double {
         return (coreFactorReq * Double(calculateIntelligence(subject: subject).coreFactor)) + (secondaryFactorReq * Double(calculateIntelligence(subject: subject).secondaryFactor))
     }
 
-    static func behaviorTotalScore(subject: Candidate, coreFactorReq: Double, secondaryFactorReq: Double) -> Double {
+    // Menghitung total nilai aspek "Perilaku"
+    static func behaviorTotalScore(subject: Entities.Subject, coreFactorReq: Double, secondaryFactorReq: Double) -> Double {
         return (coreFactorReq * Double(calculateBehavior(subject: subject).coreFactor)) + (secondaryFactorReq * Double(calculateBehavior(subject: subject).secondaryFactor))
     }
 
-    static func calculateScore(subject: Candidate) -> Double {
+    // Menghitung keseluruhan nilai dari dua aspek
+    static func calculateScore(subject: Entities.Subject) -> Double {
         let appSettings = AppSettings()
 
         let iScore = intelligenceTotalScore(subject: subject, coreFactorReq: appSettings.coreFactor, secondaryFactorReq: appSettings.secondaryFactor)
@@ -94,6 +96,7 @@ final class PMSolver {
         return ((appSettings.iPercentage * iScore) + (appSettings.bPercentage * bScore))
     }
 
+    // Membandingkan & menkonversi nilai GAP menjadi nilai bobot yang disediakan
     static func gapDifference(category: Int) -> Double {
         switch category {
             case 0:

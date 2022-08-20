@@ -6,6 +6,8 @@ struct CriteriaConfigView: View {
 
     @Binding var state: Bool
 
+    // MARK: View
+    
     var body: some View {
         NavigationView {
             List {
@@ -13,11 +15,10 @@ struct CriteriaConfigView: View {
                     VStack {
                         Text("Grade Factor")
 
-                        // Factor value slider
+                        // Slider nilai faktor
                         Slider(value: $appSettings.coreFactor, in: 0...1, step: 0.01)
                             .onChange(of: appSettings.coreFactor) { newValue in
                                 appSettings.secondaryFactor = 1 - newValue
-//                                print("Core Factor: \(appSettings.coreFactor)\nSecondary Factor: \(appSettings.secondaryFactor)")
                             }
 
                         Text("Core factor \(String(format: "%.0f", appSettings.coreFactor * 100))%")
@@ -30,7 +31,6 @@ struct CriteriaConfigView: View {
                         Slider(value: $appSettings.iPercentage, in: 0...1, step: 0.01)
                             .onChange(of: appSettings.iPercentage) { newValue in
                                 appSettings.bPercentage = 1 - newValue
-//                                print("Core Factor: \(appSettings.iPercentage)\nSecondary Factor: \(appSettings.bPercentage)")
                             }
 
                         Text("Intelligence \(String(format: "%.0f", appSettings.iPercentage * 100))%")
@@ -61,7 +61,6 @@ struct CriteriaConfigView: View {
                     Button {
                         state = false
                     } label: {
-                        Label("Back", systemImage: "chevron.left")
                         Text("Back")
                     }
                 }
@@ -70,6 +69,7 @@ struct CriteriaConfigView: View {
     }
 }
 
+// Criteria Slider View
 private struct CriteriaGradeSlider: View {
     let text: String
     @Binding var value: Double
@@ -87,15 +87,15 @@ private struct CriteriaGradeSlider: View {
 
             switch value {
                 case 1:
-                    Text("Very bad")
+                    Text("Very poor")
                 case 2:
-                    Text("Bad")
+                    Text("Poor")
                 case 3:
                     Text("Okay")
                 case 4:
                     Text("Good")
                 case 5:
-                    Text("Very good")
+                    Text("Excellent")
                 default:
                     Text("Unknown")
             }

@@ -31,12 +31,18 @@ struct GradeFormView: View {
 
     init(currentSubject: Entities.Subject) {
         
-        // Set current subject
+        // Mengambil kandidat yang dipilih
         self.currentSubject = currentSubject
     }
 
+    // MARK : View
+    
     var body: some View {
         Form {
+            Section {
+                Text(currentSubject?.subjectName ?? "Unidentified")
+            }
+            
             Section("Intelligence") {
                 GradeSlider(label: "Common Sense", value: $CSInput)
                 GradeSlider(label: "Creativity", value: $CreativityInput)
@@ -54,41 +60,40 @@ struct GradeFormView: View {
 
             Section {
                 Button {
-//                    DataController.datastack.perform { transaction in
-//                        let gradedSubject = transaction.edit(currentSubject)
-//                        let intelligence = transaction.create(Into<Entities.Intelligence>())
-//                        let behavior = transaction.create(Into<Entities.Behavior>())
-//
-//                        intelligence.commonSense = Int(CSInput)
-//                        intelligence.creativity = Int(CreativityInput)
-//                        intelligence.concentration = Int(ConcentrationInput)
-//                        intelligence.reasoning = Int(ReasoningInput)
-//                        intelligence.anticipation = Int(AnticipationInput)
-//
-//                        behavior.compliance = Int(ComplianceInput)
-//                        behavior.influence = Int(InfluenceInput)
-//                        behavior.steadiness = Int(SteadinessInput)
-//                        behavior.dominance = Int(DominanceInput)
-//
-//                        gradedSubject?.intelligence = Optional(intelligence)
-//                        gradedSubject?.behavior = Optional(behavior)
-//                    } completion: { completed in
-//                        switch completed {
-//                            case .success:
-//                                saveMessage = "Candidate has successfully graded"
-//                                saveState.toggle()
-//                            case .failure:
-//                                saveMessage = "An error occured during grading"
-//                                saveState.toggle()
-//                        }
-//                    }
+                    DataController.datastack.perform { transaction in
+                        let gradedSubject = transaction.edit(currentSubject)
+                        let intelligence = transaction.create(Into<Entities.Intelligence>())
+                        let behavior = transaction.create(Into<Entities.Behavior>())
 
+                        intelligence.commonSense = Int(CSInput)
+                        intelligence.creativity = Int(CreativityInput)
+                        intelligence.concentration = Int(ConcentrationInput)
+                        intelligence.reasoning = Int(ReasoningInput)
+                        intelligence.anticipation = Int(AnticipationInput)
 
+                        behavior.compliance = Int(ComplianceInput)
+                        behavior.influence = Int(InfluenceInput)
+                        behavior.steadiness = Int(SteadinessInput)
+                        behavior.dominance = Int(DominanceInput)
+
+                        gradedSubject?.intelligence = Optional(intelligence)
+                        gradedSubject?.behavior = Optional(behavior)
+                    } completion: { completed in
+                        switch completed {
+                            case .success:
+                                saveMessage = "Candidate has successfully graded"
+                                saveState.toggle()
+                            case .failure:
+                                saveMessage = "An error occured during grading"
+                                saveState.toggle()
+                        }
+                    }
                 } label: {
                     Text("Submit grade")
                 }
             }
         }
+        .navigationTitle("Grade Subject")
         .alert(saveMessage, isPresented: $saveState) {
             Button {
                 dismiss()
@@ -116,24 +121,18 @@ private struct GradeSlider: View {
 
             switch value {
                 case 1:
-                    Text("Very bad")
+                    Text("Very poor")
                 case 2:
-                    Text("Bad")
+                    Text("Poor")
                 case 3:
                     Text("Okay")
                 case 4:
                     Text("Good")
                 case 5:
-                    Text("Very good")
+                    Text("Excellent")
                 default:
                     Text("Unknown")
             }
         }
     }
 }
-
-//struct GradeForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GradeForm()
-//    }
-//}

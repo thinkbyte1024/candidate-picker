@@ -3,7 +3,7 @@ import Foundation
 
 class AppSettings: ObservableObject {
 
-        // MARK: Factor variables
+        // MARK: Variabel faktor
 
     @Published var coreFactor: Double {
         didSet {
